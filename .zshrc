@@ -134,9 +134,9 @@ function dir() {
 
 function clone() {
   if [[ -z $2 ]] then
-    hub clone "$@" && cd "$(basename "$1" .git)"
+    git clone "$1" && cd "$(basename "$1" .git)"
   else
-    hub clone "$@" && cd "$2"
+    git clone "$1" "$2" && cd "$2"
   fi
 }
 
