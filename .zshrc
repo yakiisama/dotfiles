@@ -114,30 +114,19 @@ function gdc() {
 # Directories
 #
 # I put
-# `~/i` for my projects
-# `~/f` for forks
-# `~/r` for reproductions
+# `~/p` for my projects
+# `~/co` for company
 # -------------------------------- #
 
-function i() {
-  cd ~/i/$1
+function p() {
+  cd ~/Documents/projects/$1
 }
 
-function repros() {
-  cd ~/r/$1
+function co() {
+  cd ~/Documents/company/$1
 }
 
-function forks() {
-  cd ~/f/$1
-}
 
-function pr() {
-  if [ $1 = "ls" ]; then
-    gh pr list
-  else
-    gh pr checkout $1
-  fi
-}
 
 function dir() {
   mkdir $1 && cd $1
@@ -151,21 +140,18 @@ function clone() {
   fi
 }
 
-# Clone to ~/i and cd to it
-function clonei() {
-  i && clone "$@" && code . && cd ~2
+# Clone to ~/p and cd to it
+function clonep() {
+  p && clone "$@" && code . && cd ~2
 }
 
-function cloner() {
-  repros && clone "$@" && code . && cd ~2
+function cloneco() {
+  co && clone "$@" && code . && cd ~2
 }
 
-function clonef() {
-  forks && clone "$@" && code . && cd ~2
-}
 
-function codei() {
-  i && code "$@" && cd -
+function codep() {
+  p && code "$@" && cd -
 }
 
 function serve() {
@@ -174,4 +160,15 @@ function serve() {
   else
     live-server $1
   fi
+}
+
+# Define the 'to' function
+function to() {
+    dir_path=$(find $HOME/Documents $HOME/Desktop -maxdepth 2 -type d -name "$1" 2>/dev/null)
+    if [ -n "$dir_path" ]; then
+        cd "$dir_path"
+        echo "Changed directory to: $(pwd)"
+    else
+        echo "Directory not found."
+    fi
 }
